@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index(){
-        $users = User::all();
-        return $users;
+    public function index()
+    {
+        $users = User::paginate(10);
+        return view('index', compact('users'));
     }
 }
