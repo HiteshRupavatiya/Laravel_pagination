@@ -18,7 +18,8 @@ class ArticleFactory extends Factory
     {
         return [
             'title'       => $this->faker->sentence(1),
-            'description' => $this->faker->paragraph(2)
+            'description' => $this->faker->paragraph(2),
+            'published_at'=> $this->faker->date
         ];
     }
 }
