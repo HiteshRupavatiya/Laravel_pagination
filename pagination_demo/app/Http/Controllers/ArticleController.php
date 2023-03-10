@@ -10,11 +10,24 @@ class ArticleController extends Controller
 {
     public function list(Request $request)
     {
-        $per_page = 10;
-        if ($request->has('per_page'))
+        if ($request->per_page) {
             $per_page = $request->per_page;
+        } else {
+            $per_page = 10;
+        }
 
-        $articles = Article::paginate($per_page);
+        if ($request->search) {
+            $articles = Article::where('title', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('description', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('published_at', $request->search)
+                ->orWhere('created_at', $request->search)
+                ->orWhere('id', $request->search)
+                ->paginate($per_page);
+        }
+        if ($request->sortBy) {
+            $order = $request->order ? $request->order : 'asc';
+            $articles = Article::orderBy($request->sortBy, $order)->paginate($per_page);
+        }
 
         $json['articles'] = $articles;
 
