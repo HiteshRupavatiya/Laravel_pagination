@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function list(Request $request)
+    public function list()
     {
-        $articles = Article::paginate(10);
+        $articles = Article::all();
         return view('index', compact('articles'));
     }
 }
