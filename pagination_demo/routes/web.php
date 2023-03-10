@@ -18,4 +18,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/users', [UserController::class, 'index']);
+Route::controller(UserController::class)->prefix('articles')->group(function () {
+    Route::get('/list', 'list');
+});
