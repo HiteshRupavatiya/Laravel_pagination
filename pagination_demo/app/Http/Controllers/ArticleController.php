@@ -19,7 +19,7 @@ class ArticleController extends Controller
         $column = $request->sortBy ? $request->sortBy : 'created_at';
         $order = $request->order ? $request->order : 'desc';
 
-        if ($request->search || ($request->sortBy || $request->order)) {
+        if ($request->search) {
             $articles = Article::where('title', $request->search)
                 ->orWhere('description', $request->search)
                 ->orWhere('id', $request->search)
@@ -27,7 +27,7 @@ class ArticleController extends Controller
                 ->paginate($per_page);
         }
 
-        if ($request->search == null || $request->sortBy == null) {
+        if ($request->search == null) {
             $articles = Article::orderBy($column, $order)->paginate($per_page);
         }
 
