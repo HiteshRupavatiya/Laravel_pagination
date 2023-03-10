@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,4 +21,13 @@ Route::get('/', function () {
 
 Route::controller(UserController::class)->prefix('articles')->group(function () {
     Route::get('/list', 'list');
+});
+
+Route::controller(PhotoController::class)->prefix('photo')->group(function () {
+    Route::get('/index', 'index')->name('photo.index');
+    Route::get('/create', 'create')->name('photo.create');
+    Route::post('/store', 'store')->name('photo.store');
+    Route::get('/edit/{id}', 'edit')->name('photo.edit');
+    Route::put('/update/{id}', 'update')->name('photo.update');
+    Route::delete('/delete/{id}','delete')->name('photo.delete');
 });
