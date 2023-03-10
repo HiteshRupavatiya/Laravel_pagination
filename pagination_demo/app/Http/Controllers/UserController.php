@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index()
+    public function list(Request $request)
     {
-        $users = User::paginate(10);
-        return view('index', compact('users'));
+        $articles = Article::paginate(10);
+        return view('index', compact('articles'));
     }
 }
