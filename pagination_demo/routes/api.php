@@ -19,8 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('article', [ArticleController::class, 'index']);
-
-Route::post('search-article/{title}', [ArticleController::class, 'searchArticle']);
-
-Route::post('sort-article', [ArticleController::class, 'sortArticle']);
+Route::get('article', [ArticleController::class, 'list']);
