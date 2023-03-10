@@ -16,17 +16,19 @@ class ArticleController extends Controller
             $per_page = 10;
         }
 
-        if ($request->search) {
-            $articles = Article::where('title', 'LIKE', '%' . $request->search . '%')
-                ->orWhere('description', 'LIKE', '%' . $request->search . '%')
-                ->orWhere('published_at', $request->search)
-                ->orWhere('created_at', $request->search)
+        $column = $request->sortBy ? $request->sortBy : 'created_at';
+        $order = $request->order ? $request->order : 'desc';
+
+        if ($request->search || ($request->sortBy || $request->order)) {
+            $articles = Article::where('title', $request->search)
+                ->orWhere('description', $request->search)
                 ->orWhere('id', $request->search)
+                ->orderBy($column, $order)
                 ->paginate($per_page);
         }
-        if ($request->sortBy) {
-            $order = $request->order ? $request->order : 'asc';
-            $articles = Article::orderBy($request->sortBy, $order)->paginate($per_page);
+
+        if ($request->search == null || $request->sortBy == null) {
+            $articles = Article::orderBy($column, $order)->paginate($per_page);
         }
 
         $json['articles'] = $articles;
