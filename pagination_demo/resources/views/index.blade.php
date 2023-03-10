@@ -5,49 +5,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Users</title>
+    <title>Articles</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
 <body>
     <div class="container">
-        <h1>Users Data</h1>
-        <br>
-        <table class="table">
+        <h1>Articles</h1>
+        <form class="form-inline" style="float: right" action="" method="post">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search Article Title" aria-label="Search">
+            <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        <br><br>
+        <table class="table table-hover">
             <thead class="thead-light">
                 <tr>
                     <th scope="col">Id</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Email Verified On</th>
-                    <th scope="col">Password</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Published Date</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($users as $user)
+                @foreach ($articles as $article)
                     <tr class="text-justify">
                         <td scope="col">
-                            {{ $user->id }}
+                            {{ $article->id }}
                         </td>
                         <td>
-                            {{ $user->name }}
+                            {{ $article->title }}
                         </td>
                         <td>
-                            {{ $user->email }}
+                            {{ $article->description }}
                         </td>
                         <td>
-                            {{ $user->email_verified_at }}
-                        </td>
-                        <td>
-                            {{ $user->password }}
+                            {{ $article->published_at }}
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
         <div>
-            {{ $users->links() }}
+            {{ $articles->links() }}
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
